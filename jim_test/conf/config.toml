@@ -1,0 +1,11 @@
+# config.toml
+[mysql]
+#dns = "root:wiQ6GmLbL2L$@tcp(mysql-test-master.middleware.svc.cluster.local:3306)/virtual_card?charset=utf8mb4&parseTime=True&loc=Local"
+# database connect
+dns = "root:123456@tcp(127.0.0.1:3306)/jim_test?charset=utf8mb4&parseTime=True&loc=Local"
+maxIdleConns = 10
+maxOpenConns = 100
+# current page name args
+name = "this is page 1"
+# exec sql
+sql = "SELECT id,token_id,name from dl_purchase_record where token_id is not null limit 5"
