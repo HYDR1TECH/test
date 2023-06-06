@@ -1,17 +1,16 @@
-# 设置基础镜像
-FROM golang:1.19 as builders
-# 在容器中创建一个工作目录
+## 设置基础镜像
+#FROM golang:1.19 AS build
+## 复制go.mod和go.sum文件以下载依赖项（如果存在）
+#WORKDIR /app/
+#COPY . ./
+## 将应用程序代码复制到容器中
+#RUN cd /app && go build -o main main.go
+#
+FROM alpine:latest
 WORKDIR /app
-# 复制go.mod和go.sum文件以下载依赖项（如果存在）
-COPY . .
-# 将应用程序代码复制到容器中
-RUN go build -o main
-
-FROM alpine
-WORKDIR /app
-COPY --from=builders /app/main /app/
-COPY conf/config.toml ./conf
-RUN chmod +x main
+COPY ./main .
+COPY conf/config.toml ./conf/
+RUN chmod +x /app/main
 EXPOSE 8000
 # 设置容器启动命令
-ENTRYPOINT ["./main"]
+CMD ["./main"]
